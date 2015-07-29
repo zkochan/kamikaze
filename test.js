@@ -1,0 +1,34 @@
+'use strict';
+
+var sinon = require('sinon');
+var expect = require('chai').expect;
+var kamikaze = require('./');
+
+describe('kamikaze', function() {
+  before(function() {
+    this.clock = sinon.useFakeTimers();
+  });
+
+  afterEach(function() {
+    this.clock.restore();
+  });
+
+  it('if the function wasn`t executed the callback function is called with an error', function() {
+    var spy = sinon.spy();
+    kamikaze(spy, 10);
+    this.clock.tick(20);
+    expect(spy.calledOnce).to.be.true;
+    expect(spy.getCall(0).args[0].message)
+      .to.be.eq('Method execution exceeded the time limit of `10`');
+  });
+
+  it('if the function wasn executed the callback function is not called with an error', function() {
+    var spy = sinon.spy();
+    var func = kamikaze(spy, 1000);
+    func(1, 2, 3);
+    this.clock.tick(2000);
+
+    expect(spy.calledOnce).to.be.true;
+    expect(spy.calledWithExactly(1, 2, 3)).to.be.true;
+  });
+});

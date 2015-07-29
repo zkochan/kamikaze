@@ -1,0 +1,36 @@
+{
+  "name": "kamikaze",
+  "version": "0.1.0",
+  "description": "Making functions self destructing in a few seconds if not executed.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zkochan/kamikaze.git"
+  },
+  "keywords": [
+    "ttl",
+    "callback",
+    "function"
+  ],
+  "author": {
+    "name": "Zoltan Kochan",
+    "email": "zoltan.kochan@gmail.com",
+    "url": "http://kochan.io"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zkochan/kamikaze/issues"
+  },
+  "homepage": "https://github.com/zkochan/kamikaze#readme",
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "mocha": "^2.2.5",
+    "sinon": "^1.15.4"
+  }
+}
