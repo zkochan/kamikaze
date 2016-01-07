@@ -23,7 +23,7 @@ describe('kamikaze input', function() {
 });
 
 describe('kamikaze', function() {
-  before(function() {
+  beforeEach(function() {
     this.clock = sinon.useFakeTimers();
   });
 
@@ -34,7 +34,9 @@ describe('kamikaze', function() {
   it('should pass an error to the callback if the wrapper wasn\'t executed in time', function() {
     var spy = sinon.spy();
     kamikaze(spy, 10);
+
     this.clock.tick(20);
+
     expect(spy).to.have.been.calledOnce;
     expect(spy.getCall(0).args[0].message)
       .to.be.eq('Method execution exceeded the time limit of `10`');
@@ -44,6 +46,7 @@ describe('kamikaze', function() {
     var spy = sinon.spy();
     var func = kamikaze(spy, 1000);
     func(1, 2, 3);
+
     this.clock.tick(2000);
 
     expect(spy).to.have.been.calledOnce;
@@ -57,5 +60,28 @@ describe('kamikaze', function() {
     this.clock.tick(10000);
 
     expect(spy).to.not.have.been.called;
+  });
+
+  it('shouldn\'t execute the callback after emergency execution', function() {
+    var spy = sinon.spy();
+    var func = kamikaze(spy, 10);
+
+    this.clock.tick(20);
+
+    func();
+
+    expect(spy).to.have.been.calledOnce;
+    expect(spy.getCall(0).args[0].message)
+      .to.be.eq('Method execution exceeded the time limit of `10`');
+  });
+
+  it('should never execute the callback more than once', function() {
+    var spy = sinon.spy();
+    var func = kamikaze(spy, Infinity);
+
+    func();
+    func();
+
+    expect(spy).to.have.been.calledOnce;
   });
 });
