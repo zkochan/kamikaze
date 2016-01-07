@@ -1,6 +1,14 @@
 'use strict';
 
 function kamikaze(cb, ttl) {
+  if (typeof cb !== 'function') {
+    throw new Error('cb has to be a function');
+  }
+
+  if (typeof ttl !== 'number') {
+    throw new Error('ttl has to be a number');
+  }
+
   if (ttl === Infinity) {
     return cb;
   }
@@ -15,6 +23,7 @@ function kamikaze(cb, ttl) {
     if (killed) {
       return;
     }
+
     clearTimeout(timeoutId);
     return cb.apply(this, arguments);
   };

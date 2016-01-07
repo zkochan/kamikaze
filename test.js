@@ -4,6 +4,20 @@ var sinon = require('sinon');
 var expect = require('chai').expect;
 var kamikaze = require('./');
 
+describe('kamikaze input', function() {
+  it('should throw error if first parameter is not a function', function() {
+    expect(function() {
+      kamikaze(1);
+    }).to.throw(Error);
+  });
+
+  it('should throw error if second parameter is not a number', function() {
+    expect(function() {
+      kamikaze(function() {}, 'string');
+    }).to.throw(Error);
+  });
+});
+
 describe('kamikaze', function() {
   before(function() {
     this.clock = sinon.useFakeTimers();
