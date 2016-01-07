@@ -20,6 +20,9 @@
     "email": "zoltan.kochan@gmail.com",
     "url": "http://kochan.io"
   },
+  "files": [
+    "index.js"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zkochan/kamikaze/issues"
