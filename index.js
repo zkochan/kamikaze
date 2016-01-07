@@ -2,13 +2,13 @@
 
 var once = require('once');
 
-function kamikaze(cb, ttl) {
-  if (typeof cb !== 'function') {
-    throw new Error('cb has to be a function');
-  }
-
+function kamikaze(ttl, cb) {
   if (typeof ttl !== 'number') {
     throw new Error('ttl has to be a number');
+  }
+
+  if (typeof cb !== 'function') {
+    throw new Error('cb has to be a function');
   }
 
   var wcb = once(cb);
