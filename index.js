@@ -1,5 +1,7 @@
 'use strict';
 
+var once = require('once');
+
 function kamikaze(cb, ttl) {
   if (typeof cb !== 'function') {
     throw new Error('cb has to be a function');
@@ -9,23 +11,19 @@ function kamikaze(cb, ttl) {
     throw new Error('ttl has to be a number');
   }
 
+  var wcb = once(cb);
+
   if (ttl === Infinity) {
-    return cb;
+    return wcb;
   }
 
-  var killed = false;
   var timeoutId = setTimeout(function() {
-    cb(new Error('Method execution exceeded the time limit of `' + ttl + '`'));
-    killed = true;
+    wcb(new Error('Method execution exceeded the time limit of `' + ttl + '`'));
   }, ttl);
 
   return function() {
-    if (killed) {
-      return;
-    }
-
     clearTimeout(timeoutId);
-    return cb.apply(this, arguments);
+    return wcb.apply(this, arguments);
   };
 }
 
