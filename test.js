@@ -1,8 +1,12 @@
 'use strict';
 
 var sinon = require('sinon');
-var expect = require('chai').expect;
+var sinonChai = require('sinon-chai');
+var chai = require('chai');
+var expect = chai.expect;
 var kamikaze = require('./');
+
+chai.use(sinonChai);
 
 describe('kamikaze input', function() {
   it('should throw error if first parameter is not a function', function() {
@@ -31,7 +35,7 @@ describe('kamikaze', function() {
     var spy = sinon.spy();
     kamikaze(spy, 10);
     this.clock.tick(20);
-    expect(spy.calledOnce).to.be.true;
+    expect(spy).to.have.been.calledOnce;
     expect(spy.getCall(0).args[0].message)
       .to.be.eq('Method execution exceeded the time limit of `10`');
   });
@@ -42,8 +46,8 @@ describe('kamikaze', function() {
     func(1, 2, 3);
     this.clock.tick(2000);
 
-    expect(spy.calledOnce).to.be.true;
-    expect(spy.calledWithExactly(1, 2, 3)).to.be.true;
+    expect(spy).to.have.been.calledOnce;
+    expect(spy).to.have.been.calledWithExactly(1, 2, 3);
   });
 
   it('should never do an emergency execution of the callback if the timeout is set to Infinity', function() {
@@ -52,6 +56,6 @@ describe('kamikaze', function() {
 
     this.clock.tick(10000);
 
-    expect(spy.called).to.be.false;
+    expect(spy).to.not.have.been.called;
   });
 });
