@@ -27,7 +27,7 @@ describe('kamikaze', function() {
     this.clock.restore();
   });
 
-  it('if the function wasn`t executed the callback function is called with an error', function() {
+  it('should pass an error to the callback if the wrapper wasn\'t executed in time', function() {
     var spy = sinon.spy();
     kamikaze(spy, 10);
     this.clock.tick(20);
@@ -36,7 +36,7 @@ describe('kamikaze', function() {
       .to.be.eq('Method execution exceeded the time limit of `10`');
   });
 
-  it('if the function was executed the callback function is not called with an error', function() {
+  it('shouldn\'t do an emergency execution of the callback if the wrapper was called before timeout', function() {
     var spy = sinon.spy();
     var func = kamikaze(spy, 1000);
     func(1, 2, 3);
@@ -46,7 +46,7 @@ describe('kamikaze', function() {
     expect(spy.calledWithExactly(1, 2, 3)).to.be.true;
   });
 
-  it('if the timeout is set to infinity then never call the function', function() {
+  it('should never do an emergency execution of the callback if the timeout is set to Infinity', function() {
     var spy = sinon.spy();
     var func = kamikaze(spy, Infinity);
 
