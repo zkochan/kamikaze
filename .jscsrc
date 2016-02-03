@@ -17,5 +17,7 @@
         "test/data/**"
     ],
 
-    "requirePaddingNewLinesAfterUseStrict": true
+    "disallowPaddingNewLinesAfterUseStrict": true,
+    "requireSemicolons": false,
+    "disallowSemicolons": true
 }

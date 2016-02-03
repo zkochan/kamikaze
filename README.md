@@ -17,15 +17,13 @@ npm install --save kamikaze
 ## Usage
 
 ```js
-var kamikaze = require('kamikaze');
+var kamikaze = require('kamikaze')
 
 var cb = kamikaze(5000, function(err) {
-  if (err) {
-    console.error(err);
-    return;
-  }
-  console.log('Hello world!');
-});
+  if (err) return console.error(err)
+
+  console.log('Hello world!')
+})
 ```
 
 
