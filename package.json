@@ -1,6 +1,6 @@
 {
   "name": "kamikaze",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Making functions self destructing in a few seconds if not executed.",
   "main": "index.js",
   "scripts": {
