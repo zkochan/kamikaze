@@ -83,4 +83,14 @@ describe('kamikaze', function() {
 
     expect(cb).to.have.been.calledOnce
   })
+
+  it('should cancel timeout invocation if timeout cleared', function() {
+    var cb = sinon.spy()
+    var func = kamikaze(10, cb)
+    clearTimeout(func.timeoutId)
+
+    this.clock.tick(20)
+
+    expect(cb).to.have.not.been.called
+  })
 })

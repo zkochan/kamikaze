@@ -10,7 +10,7 @@ A callback wrapper that executes it with a timeout error if not called in time.
 
 ## Installation
 
-```js
+```
 npm install --save kamikaze
 ```
 
@@ -25,6 +25,9 @@ var cb = kamikaze(5000, function(err) {
 
   console.log('Hello world!')
 })
+
+// if you changed your mind and don't want to autoexecute the callback
+clearTimeout(cb.timeoutId)
 ```
 
 

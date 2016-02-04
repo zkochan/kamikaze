@@ -12,18 +12,21 @@ function kamikaze(ttl, cb) {
     throw new Error('cb has to be a function')
   }
 
-  var wcb = once(cb)
+  var safecb = once(cb)
 
   if (ttl === Infinity) {
-    return wcb
+    return safecb
   }
 
   var timeoutId = setTimeout(function() {
-    wcb(new Error('Method execution exceeded the time limit of `' + ttl + '`'))
+    safecb(new Error('Method execution exceeded the time limit of `' + ttl + '`'))
   }, ttl)
 
-  return function() {
+  function result() {
     clearTimeout(timeoutId)
-    return wcb.apply(this, arguments)
+    return safecb.apply(this, arguments)
   }
+  result.timeoutId = timeoutId
+
+  return result
 }
