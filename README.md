@@ -20,13 +20,20 @@ npm install --save kamikaze
 ```js
 var kamikaze = require('kamikaze')
 
-var cb = kamikaze(5000, function(err) {
-  if (err) return console.error(err)
+var cb = kamikaze(5000, function(err, msg) {
+  if (err) {
+    // if no message was passed for 5 seconds, just output 'Hello world!'
+    console.log('Hello world!')
+    return
+  }
 
-  console.log('Hello world!')
+  console.log(msg)
 })
 
-// if you changed your mind and don't want to autoexecute the callback
+// ...if called in less than 5 seconds, this will output 'Just in time!'
+cb(null, 'Just in time!')
+
+// to cancel the callback timer just clear it
 clearTimeout(cb.timeoutId)
 ```
 
