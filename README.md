@@ -40,4 +40,4 @@ clearTimeout(cb.timeoutId)
 
 ## License
 
-The MIT License (MIT)
+MIT © [Zoltan Kochan](https://github.com/zkochan)
