@@ -7,7 +7,7 @@
     "test": "package-preview && mocha test/{**/,/}*.js",
     "coverage": "istanbul cover _mocha test/{**/,/}*.js -- -R spec",
     "precoveralls": "istanbul cover _mocha test/{**/,/}*.js --report lcovonly -- -R spec && npm i coveralls@2",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "coveralls": "package-preview && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "postcoveralls": "rm -rf ./coverage"
   },
   "repository": {
