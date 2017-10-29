@@ -3,7 +3,7 @@ var sinon = require('sinon')
 var sinonChai = require('sinon-chai')
 var chai = require('chai')
 var expect = chai.expect
-var kamikaze = require('..')
+var kamikaze = require('kamikaze')
 
 chai.use(sinonChai)
 
